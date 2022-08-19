@@ -13,8 +13,9 @@ class MongodbUserRepository(AbstractUserRepository):
         self.db = self.client[MONGODB_DB]
 
         # создаем индексы, если их нет
-        collection = self.db[USER_COLLECTION]
-        collection.create_index('email', unique=True)
+        self.collection = self.db[USER_COLLECTION]
+        self.collection.create_index('email', unique=True)
+        self.collection.create_index('token', unique=True)
 
     def __del__(self):
         self.client.close()
@@ -29,7 +30,6 @@ class MongodbUserRepository(AbstractUserRepository):
         return _connection_string
 
     async def registration(self, email: EmailStr, username: str, password: str, token: str) -> str:
-        collection = self.db[USER_COLLECTION]
         data = {
             'email': email,
             'username': username,
@@ -38,8 +38,19 @@ class MongodbUserRepository(AbstractUserRepository):
         }
 
         try:
-            user = await collection.insert_one(data)
+            user = await self.collection.insert_one(data)
         except DuplicateKeyError:
             raise HTTPBadRequest(text='User already exist')
         else:
             return user.inserted_id
+
+    async def authorization(self, email: EmailStr, password: str) -> str:
+        condition = {
+            'email': email,
+            'password': password
+        }
+
+        user = await self.collection.find_one(condition)
+        if user is not None:
+            return user.get('token')
+        raise HTTPBadRequest(text='Invalid email or password')

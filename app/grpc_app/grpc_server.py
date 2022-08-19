@@ -5,14 +5,17 @@ import grpc
 from aiohttp.web import Application
 
 from app.config import GRPC_PORT
-from app.services.user_service import GrpcUserRegistrationService
+from app.services.user_service import GrpcUserRegistrationService, GrpcAuthorizationService
 from . import auth_pb2_grpc
 
 
 def _init(app: Application, listen_addr: str) -> grpc.aio.Server:
     server = grpc.aio.server()
     server.add_insecure_port(listen_addr)
+
     auth_pb2_grpc.add_RegistrationServicer_to_server(GrpcUserRegistrationService(app), server)
+    auth_pb2_grpc.add_AuthorizationServicer_to_server(GrpcAuthorizationService(app), server)
+
     return server
 
 

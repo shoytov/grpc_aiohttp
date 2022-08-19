@@ -11,3 +11,10 @@ class AbstractUserRepository(ABC):
         Возвращает ID документа(записи).
         """
         raise NotImplementedError()
+
+    @abstractmethod
+    async def authorization(self, email: EmailStr, password: str) -> str:
+        """
+        Авторизация пользователя. Принимает почту и пароль, возвращает токен.
+        """
+        raise NotImplementedError()

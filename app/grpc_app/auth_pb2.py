@@ -14,12 +14,14 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\nauth.proto\"@\n\x0bUserRequest\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x10\n\x08username\x18\x02 \x01(\t\x12\x10\n\x08password\x18\x03 \x01(\t\"Q\n\x13UserCreatedResponse\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\x12\x10\n\x08username\x18\x03 \x01(\t\x12\r\n\x05token\x18\x04 \x01(\t2D\n\x0cRegistration\x12\x34\n\x0cregistration\x12\x0c.UserRequest\x1a\x14.UserCreatedResponse\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\nauth.proto\"@\n\x0bUserRequest\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x10\n\x08username\x18\x02 \x01(\t\x12\x10\n\x08password\x18\x03 \x01(\t\"Q\n\x13UserCreatedResponse\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\x12\x10\n\x08username\x18\x03 \x01(\t\x12\r\n\x05token\x18\x04 \x01(\t\"2\n\x0f\x41uthUserRequest\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"\x1e\n\rTokenResponse\x12\r\n\x05token\x18\x01 \x01(\t2D\n\x0cRegistration\x12\x34\n\x0cregistration\x12\x0c.UserRequest\x1a\x14.UserCreatedResponse\"\x00\x32\x44\n\rAuthorization\x12\x33\n\rauthorization\x12\x10.AuthUserRequest\x1a\x0e.TokenResponse\"\x00\x62\x06proto3')
 
 
 
 _USERREQUEST = DESCRIPTOR.message_types_by_name['UserRequest']
 _USERCREATEDRESPONSE = DESCRIPTOR.message_types_by_name['UserCreatedResponse']
+_AUTHUSERREQUEST = DESCRIPTOR.message_types_by_name['AuthUserRequest']
+_TOKENRESPONSE = DESCRIPTOR.message_types_by_name['TokenResponse']
 UserRequest = _reflection.GeneratedProtocolMessageType('UserRequest', (_message.Message,), {
   'DESCRIPTOR' : _USERREQUEST,
   '__module__' : 'auth_pb2'
@@ -34,7 +36,22 @@ UserCreatedResponse = _reflection.GeneratedProtocolMessageType('UserCreatedRespo
   })
 _sym_db.RegisterMessage(UserCreatedResponse)
 
+AuthUserRequest = _reflection.GeneratedProtocolMessageType('AuthUserRequest', (_message.Message,), {
+  'DESCRIPTOR' : _AUTHUSERREQUEST,
+  '__module__' : 'auth_pb2'
+  # @@protoc_insertion_point(class_scope:AuthUserRequest)
+  })
+_sym_db.RegisterMessage(AuthUserRequest)
+
+TokenResponse = _reflection.GeneratedProtocolMessageType('TokenResponse', (_message.Message,), {
+  'DESCRIPTOR' : _TOKENRESPONSE,
+  '__module__' : 'auth_pb2'
+  # @@protoc_insertion_point(class_scope:TokenResponse)
+  })
+_sym_db.RegisterMessage(TokenResponse)
+
 _REGISTRATION = DESCRIPTOR.services_by_name['Registration']
+_AUTHORIZATION = DESCRIPTOR.services_by_name['Authorization']
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
@@ -42,6 +59,12 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _USERREQUEST._serialized_end=78
   _USERCREATEDRESPONSE._serialized_start=80
   _USERCREATEDRESPONSE._serialized_end=161
-  _REGISTRATION._serialized_start=163
-  _REGISTRATION._serialized_end=231
+  _AUTHUSERREQUEST._serialized_start=163
+  _AUTHUSERREQUEST._serialized_end=213
+  _TOKENRESPONSE._serialized_start=215
+  _TOKENRESPONSE._serialized_end=245
+  _REGISTRATION._serialized_start=247
+  _REGISTRATION._serialized_end=315
+  _AUTHORIZATION._serialized_start=317
+  _AUTHORIZATION._serialized_end=385
 # @@protoc_insertion_point(module_scope)
