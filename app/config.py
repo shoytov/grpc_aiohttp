@@ -12,3 +12,5 @@ USER_COLLECTION = config.get('USER_COLLECTION', default='user')
 JWT_KEY = config.get('JWT_KEY', default='secret')
 
 GRPC_PORT = config.get('GRPC_PORT', default=50051)
+
+ENVIRONMENT = config.get('ENVIRONMENT', default='PRODUCTION')

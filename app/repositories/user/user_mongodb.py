@@ -22,9 +22,9 @@ class MongodbUserRepository(AbstractUserRepository):
     @property
     def connection_string(self) -> str:
         if MONGODB_USER and MONGODB_PASSWORD:
-            _connection_string = f"mongodb://{MONGODB_USER}:{MONGODB_PASSWORD}@{MONGODB_HOST}:{MONGODB_PORT}"
+            _connection_string = f'mongodb://{MONGODB_USER}:{MONGODB_PASSWORD}@{MONGODB_HOST}:{MONGODB_PORT}'
         else:
-            _connection_string = f"mongodb://{MONGODB_HOST}:{MONGODB_PORT}"
+            _connection_string = f'mongodb://{MONGODB_HOST}:{MONGODB_PORT}'
 
         return _connection_string
 
