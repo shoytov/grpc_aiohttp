@@ -1,5 +1,6 @@
 import hashlib
 from abc import ABC, abstractmethod
+from typing import Optional
 
 import grpc
 import jwt
@@ -60,9 +61,13 @@ class UserService(AbstractUserService):
 
 
 class GrpcUserRegistrationService(RegistrationServicer):
-    def __init__(self, app: Application) -> None:
+    def __init__(self, app: Application, repository: Optional[AbstractUserRepository] = None) -> None:
         self.app = app
-        self.service = UserService(initial_user_repository())
+
+        if repository is None:
+            self.service = UserService(initial_user_repository())
+        else:
+            self.service = UserService(repository)
 
     async def registration(self, request: UserRequest, context: grpc.aio.ServicerContext) -> UserCreatedResponse:
         created_user = await self.service.registration(request.email, request.username, request.password)
@@ -70,9 +75,13 @@ class GrpcUserRegistrationService(RegistrationServicer):
 
 
 class GrpcAuthorizationService(AuthorizationServicer):
-    def __init__(self, app: Application) -> None:
+    def __init__(self, app: Application, repository: Optional[AbstractUserRepository] = None) -> None:
         self.app = app
-        self.service = UserService(initial_user_repository())
+
+        if repository is None:
+            self.service = UserService(initial_user_repository())
+        else:
+            self.service = UserService(repository)
 
     async def authorization(self, request: AuthUserRequest, context: grpc.aio.ServicerContext) -> TokenResponse:
         token = await self.service.authorization(request.email, request.password)
